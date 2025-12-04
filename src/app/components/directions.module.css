@@ -1,0 +1,191 @@
+/* Directions Component - Mobile First */
+
+.directionsWrapper {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: var(--secondary-color);
+  border-radius: 0.5rem;
+}
+
+.directionsHeader {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--tertiary-color);
+}
+
+.directionsTitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+.routeSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.summaryLabel {
+  color: var(--quaternary-color);
+  font-weight: 500;
+}
+
+.summaryValue {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.stepsContainer {
+  width: 100%;
+}
+
+.stepsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.stepItem {
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+.stepContent {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 0;
+  position: relative;
+}
+
+.stepIcon {
+  flex-shrink: 0;
+  width: 2.5rem;
+  height: 2.5rem;
+  display: inline-block;
+  background-color: var(--tertiary-color);
+  border-radius: 50%;
+  background-size: 60%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.stepDetails {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+.stepInstruction {
+  color: var(--text-primary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  word-wrap: break-word;
+}
+
+.stepInstruction :global(strong) {
+  font-weight: 600;
+}
+
+.stepMeta {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.stepDistance {
+  color: var(--blue-color);
+  font-weight: 500;
+}
+
+.stepDuration {
+  color: var(--quaternary-color);
+}
+
+.stepConnector {
+  position: absolute;
+  left: 1.25rem;
+  top: 3.5rem;
+  width: 2px;
+  height: calc(100% - 1rem);
+  background-color: var(--tertiary-color);
+  z-index: 0;
+}
+
+.stepItem:last-child .stepConnector {
+  display: none;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .directionsWrapper {
+    padding: 1.5rem;
+  }
+
+  .directionsTitle {
+    font-size: 1.5rem;
+  }
+
+  .routeSummary {
+    flex-direction: row;
+    gap: 2rem;
+  }
+
+  .stepContent {
+    gap: 1.5rem;
+    padding: 1.25rem 0;
+  }
+
+  .stepIcon {
+    width: 3rem;
+    height: 3rem;
+    font-size: 1.5rem;
+  }
+
+  .stepInstruction {
+    font-size: 1rem;
+  }
+
+  .stepConnector {
+    left: 1.5rem;
+    top: 4.25rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1000px) {
+  .directionsWrapper {
+    padding: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .stepContent {
+    padding: 1.5rem 0;
+  }
+}
+
+/* Desktop Large */
+@media (min-width: 1200px) {
+  .directionsWrapper {
+    max-width: 900px;
+  }
+}
+

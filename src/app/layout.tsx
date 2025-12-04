@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Navigation from "./components/navigation";
+import styles from "./page.module.css";
+import { RouteProvider } from "./contexts/RouteContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,7 +28,21 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+        <header className={styles.header}>
+          <h1 className={styles.logo}>
+            <img src="/img/micronav.svg" alt="Micronav (Alpha)" width={300} height={100} />
+            <span>Alpha</span>
+          </h1>
+          {/* <Navigation /> */}
+        </header>
+        <main>
+          <RouteProvider>
+            {children}
+          </RouteProvider>
+        </main>
+        <footer>
+          <p className={styles.footerText}>Copyright 2025 - Micronav Alpha</p>
+        </footer>
       </body>
     </html>
   );

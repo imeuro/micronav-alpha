@@ -1,0 +1,59 @@
+/* Map Component Styles - Mobile First */
+
+.mapWrapper {
+  width: 100%;
+  margin: 24px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mapWrapper.hidden {
+  display: none;
+}
+
+.mapContainer {
+  width: 100% !important;
+  height: 300px !important;
+  position: relative;
+}
+
+.mapContainer canvas {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .mapContainer {
+    height: 400px !important;
+  }
+  
+  .mapContainer canvas {
+    height: 400px !important;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1000px) {
+  .mapContainer {
+    height: 500px !important;
+  }
+  
+  .mapContainer canvas {
+    height: 500px !important;
+  }
+}
+
+/* Desktop Large */
+@media (min-width: 1200px) {
+  .mapContainer {
+    height: 600px !important;
+  }
+  
+  .mapContainer canvas {
+    height: 600px !important;
+  }
+}
+

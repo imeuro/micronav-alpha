@@ -1,36 +1,86 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Micronav Alpha
 
-## Getting Started
+Applicazione di navigazione web basata su Next.js e Mapbox.
 
-First, run the development server:
+## Prerequisiti
 
+- Node.js 18+ e npm
+- Token di accesso Mapbox ([ottieni qui](https://account.mapbox.com/access-tokens/))
+- (Opzionale) mkcert per generare certificati SSL locali
+
+## Installazione
+
+1. Clona il repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd micronav-alpha
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Installa le dipendenze:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Configura le variabili d'ambiente:
+```bash
+cp env.example .env
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**Nota**: Se il file `env.example` non esiste, crea manualmente un file `.env` nella root del progetto.
 
-## Learn More
+Modifica il file `.env` e inserisci il tuo token Mapbox:
+```
+NEXT_PUBLIC_MAPBOX_TOKEN=il_tuo_token_mapbox
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. (Opzionale) Genera certificati SSL per sviluppo HTTPS:
+```bash
+# Con mkcert (consigliato - certificati validi senza avvisi)
+npm run generate-cert:mkcert
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Oppure con OpenSSL (certificati autofirmati)
+npm run generate-cert
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**Nota**: Se vuoi accedere all'applicazione da altri dispositivi sulla stessa rete, imposta anche `NETWORK_IP` nel file `.env` con il tuo IP di rete locale.
 
-## Deploy on Vercel
+## Sviluppo
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Avvia il server di sviluppo:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# Server HTTP standard (porta 3000)
+npm run dev
+
+# Server HTTP/HTTPS personalizzato (porte 3000 e 3001)
+npm run dev:https
+```
+
+Apri [http://localhost:3000](http://localhost:3000) nel browser per vedere l'applicazione.
+
+## Script disponibili
+
+- `npm run dev` - Avvia il server di sviluppo Next.js standard
+- `npm run dev:https` - Avvia server HTTP/HTTPS personalizzato
+- `npm run generate-cert` - Genera certificati SSL autofirmati con OpenSSL
+- `npm run generate-cert:mkcert` - Genera certificati SSL con mkcert (richiede mkcert installato)
+- `npm run build` - Crea la build di produzione
+- `npm run start` - Avvia il server di produzione
+- `npm run lint` - Esegue il linter
+
+## Tecnologie utilizzate
+
+- [Next.js](https://nextjs.org) - Framework React
+- [Mapbox GL JS](https://docs.mapbox.com/mapbox-gl-js/) - Mappe interattive
+- [Mapbox Directions API](https://docs.mapbox.com/api/navigation/directions/) - Calcolo percorsi
+- [Mapbox Geocoding API](https://docs.mapbox.com/api/search/geocoding/) - Geocoding
+
+## Deploy
+
+Il modo più semplice per fare il deploy è utilizzare [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+
+Consulta la [documentazione di deployment di Next.js](https://nextjs.org/docs/app/building-your-application/deploying) per maggiori dettagli.
+
+## Licenza
+
+[Specifica la licenza del progetto]

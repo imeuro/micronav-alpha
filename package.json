@@ -1,14 +1,20 @@
 {
-  "name": "nextjs-demo",
-  "version": "0.1.0",
+  "name": "micronav-alpha",
+  "version": "0.0.12",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:https": "node server.js",
+    "generate-cert": "node generate-certificates.js",
+    "generate-cert:mkcert": "node generate-certificates-mkcert.js",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "@mapbox/mapbox-gl-directions": "^4.3.1",
+    "@types/mapbox-gl": "^3.4.1",
+    "mapbox-gl": "^3.17.0",
     "next": "16.0.6",
     "react": "19.2.0",
     "react-dom": "19.2.0"
