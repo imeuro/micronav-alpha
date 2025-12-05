@@ -5,6 +5,7 @@ import CurLocation from "./components/location";
 import Destination from "./components/destination";
 import Map from "./components/map";
 import Directions from "./components/directions";
+import DeviceStatus from "./components/deviceStatus";
 
 export default function Home() {
   return (
@@ -17,6 +18,7 @@ export default function Home() {
           <Map />
           <hr />
           <Directions />
+          <DeviceStatus />
         </div>
       </main>
     </div>

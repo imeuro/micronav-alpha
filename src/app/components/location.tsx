@@ -48,10 +48,10 @@ const CurLocation = () => {
   }, []);
 
   if (error) {
-    return <p><strong>Current location:</strong> {error}</p>;
+    return <div><h3 className="hTitle">Current location:</h3><p>{error}</p></div>;
   }
 
-  return <p><strong>Current location:</strong> {location ? location : STATUS_MESSAGES.LOADING_LOCATION}</p>;
+  return <div><h3 className="hTitle">Current location:</h3><p>{location ? location : STATUS_MESSAGES.LOADING_LOCATION}</p></div>;
 };
 
 export default CurLocation;

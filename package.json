@@ -7,14 +7,16 @@
     "dev:https": "node server.js",
     "generate-cert": "node generate-certificates.js",
     "generate-cert:mkcert": "node generate-certificates-mkcert.js",
-    "build": "next build",
+    "build": "next build --webpack",
     "start": "next start",
+    "start:https": "NODE_ENV=production node server.js",
     "lint": "eslint"
   },
   "dependencies": {
     "@mapbox/mapbox-gl-directions": "^4.3.1",
     "@types/mapbox-gl": "^3.4.1",
     "mapbox-gl": "^3.17.0",
+    "mqtt": "^5.10.1",
     "next": "16.0.6",
     "react": "19.2.0",
     "react-dom": "19.2.0"

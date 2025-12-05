@@ -193,7 +193,7 @@ const Destination = () => {
 
   return (
     <div className={styles.destinationWrapper}>
-      <p><strong>Your destination:</strong></p>
+      <h3 className="hTitle">Your destination:</h3>
       <div className={styles.inputContainer}>
         <input
           id="destination"
@@ -246,21 +246,24 @@ const Destination = () => {
             Loading...
           </div>
         )}
-        <button
-          onClick={() => previewDirections(destination)}
-          className={styles.searchButton}
-          aria-label="Get Directions"
-          disabled={isCalculatingRoute || destination.length < 3}
-        >
-          {isCalculatingRoute ? "Calcolo percorso..." : "Get Directions"}
-        </button>
-        <button id="clearBtn" className={styles.clearButton} onClick={clearResults} disabled={isCalculatingRoute}><i className="fas fa-trash"></i>
-          Clear</button>
-        {destinationError && (
-          <div className={styles.errorMessage} role="alert" aria-live="polite">
-            {destinationError}
-          </div>
-        )}
+
+        <div className={styles.buttonsContainer}>
+          <button
+            onClick={() => previewDirections(destination)}
+            className={styles.searchButton}
+            aria-label="Get Directions"
+            disabled={isCalculatingRoute || destination.length < 3}
+          >
+            {isCalculatingRoute ? "Calcolo percorso..." : "Get Directions"}
+          </button>
+          <button id="clearBtn" className={styles.clearButton} onClick={clearResults} disabled={isCalculatingRoute}><i className="fas fa-trash"></i>
+            Clear</button>
+          {destinationError && (
+            <div className={styles.errorMessage} role="alert" aria-live="polite">
+              {destinationError}
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

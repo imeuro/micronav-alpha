@@ -32,8 +32,12 @@
   color: var(--quaternary-color);
 }
 
+.buttonsContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
 .searchButton, .clearButton {
-  width: 100%;
   padding: 12px 24px;
   font-size: 16px;
   font-weight: 600;
@@ -44,7 +48,11 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
 }
+.searchButton {
+  flex: 1 0 auto;
+}
 .clearButton {
+  flex: 0 0 auto;
   background-color: var(--tertiary-color);
   color: var(--quaternary-color);
 }

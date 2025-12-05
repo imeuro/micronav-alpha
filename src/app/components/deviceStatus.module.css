@@ -1,0 +1,239 @@
+/* Device Status Component - Mobile First */
+
+.deviceStatusWrapper {
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 1rem;
+  background-color: var(--secondary-color);
+  border-radius: 0.5rem;
+}
+
+.deviceStatusHeader {
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--tertiary-color);
+}
+
+.deviceStatusTitle {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+  margin: 0 0 1rem 0;
+}
+
+.statusItems {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.statusItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  padding: 0.5rem 0;
+}
+
+.statusItemLabel {
+  color: var(--quaternary-color);
+  font-weight: 500;
+}
+
+.statusItemValue {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.statusConnected {
+  color: var(--green-color);
+}
+
+.statusDisconnected {
+  color: var(--red-color);
+}
+
+.statusUnknown {
+  color: var(--quaternary-color);
+}
+
+.gpsFixIndicator {
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--quaternary-color);
+}
+
+/* Controlli dispositivo */
+.deviceControls {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--tertiary-color);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.controlItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.controlLabel {
+  font-size: 0.75rem;
+  color: var(--quaternary-color);
+  font-weight: 500;
+}
+
+/* Brightness Section - Stile identico al sito */
+.brightnessSection {
+  flex: 1 0 100%;
+  margin: 40px 0 60px 0;
+}
+
+.brightnessLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: var(--quaternary-color);
+  font-size: 14px;
+}
+
+.brightnessContainer {
+  position: relative;
+}
+
+.brightnessSlider {
+  width: 100%;
+  height: 8px;
+  background: var(--tertiary-color);
+  border-radius: 10px;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+
+.brightnessSlider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: var(--red-color);
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 2px 14px var(--secondary-color);
+  position: relative;
+  z-index: 10;
+  left: 0px;
+}
+
+.brightnessSlider::-moz-range-thumb {
+  width: 20px;
+  height: 20px;
+  background: var(--red-color);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 2px 14px var(--secondary-color);
+  position: relative;
+  z-index: 10;
+}
+
+.brightnessValue {
+  display: none;
+}
+
+/* Ticks e labels */
+.brightnessTicks {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0px;
+  padding: 0 10px;
+}
+
+.brightnessTick {
+  position: relative;
+  width: 1px;
+  height: 6px;
+  background: var(--quaternary-color);
+}
+
+.brightnessTick::after {
+  content: attr(data-value);
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  color: var(--quaternary-color);
+  white-space: nowrap;
+}
+
+.restartButton {
+  width: 100%;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--white-color);
+  background-color: var(--red-color);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.restartButton:hover {
+  background-color: var(--white-color);
+  color: var(--red-color);
+}
+
+.restartButton:focus {
+  outline: 1px solid var(--red-color);
+  outline-offset: 2px;
+}
+
+.restartButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Tablet */
+@media (min-width: 768px) {
+  .deviceStatusWrapper {
+    padding: 1.5rem;
+  }
+
+  .deviceStatusTitle {
+    font-size: 1.1rem;
+  }
+
+  .statusItem {
+    font-size: 0.85rem;
+  }
+}
+
+/* Desktop */
+@media (min-width: 1000px) {
+  .deviceStatusWrapper {
+    padding: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .statusItem {
+    font-size: 0.9rem;
+  }
+}
+
+/* Desktop Large */
+@media (min-width: 1200px) {
+  .deviceStatusWrapper {
+    max-width: 900px;
+  }
+}
+

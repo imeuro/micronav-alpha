@@ -9,7 +9,8 @@ const { execSync } = require('child_process');
 
 const dev = process.env.NODE_ENV !== 'production';
 const hostname = '0.0.0.0'; // Ascolta su tutte le interfacce di rete
-const port = 3000;
+const port = parseInt(process.env.PORT || '3000', 10);
+const httpsPort = parseInt(process.env.HTTPS_PORT || String(port + 1), 10);
 
 // Funzione per ottenere l'IP di rete locale
 function getLocalNetworkIP() {
@@ -92,9 +93,9 @@ const networkIP = getLocalNetworkIP();
 // Rigenera i certificati se necessario
 regenerateCertificates(networkIP);
 
-// Configura Next.js per accettare connessioni da qualsiasi host
+// Configura Next.js - funziona sia in dev che in produzione
 const app = next({ 
-  dev, 
+  dev,
   // Non passare hostname a next() quando si usa un server personalizzato
   // Next.js gestirà le richieste tramite il nostro server
 });
@@ -102,18 +103,27 @@ const handle = app.getRequestHandler();
 
 // Percorsi dei certificati
 const certDir = path.join(__dirname, 'certificates');
+const certFile = path.join(certDir, 'localhost.pem');
+const keyFile = path.join(certDir, 'localhost-key.pem');
+
+// Verifica che i certificati esistano
+if (!fs.existsSync(certFile) || !fs.existsSync(keyFile)) {
+  console.error('❌ Certificati SSL non trovati!');
+  console.error(`   Certificati richiesti: ${certFile} e ${keyFile}`);
+  console.error('   Esegui: npm run generate-cert:mkcert');
+  process.exit(1);
+}
+
 const httpsOptions = {
-  key: fs.readFileSync(path.join(certDir, 'localhost-key.pem')),
-  cert: fs.readFileSync(path.join(certDir, 'localhost.pem')),
+  key: fs.readFileSync(keyFile),
+  cert: fs.readFileSync(certFile),
 };
 
 app.prepare().then(() => {
-  // Server HTTP sulla porta 3000 (come richiesto)
+  // Server HTTP sulla porta configurata
   const httpServer = createHttpServer(async (req, res) => {
     try {
       const parsedUrl = parse(req.url, true);
-      // Preserva l'hostname originale dalla richiesta
-      // Next.js accetterà qualsiasi hostname quando si usa un server personalizzato
       await handle(req, res, parsedUrl);
     } catch (err) {
       console.error('Error occurred handling', req.url, err);
@@ -132,12 +142,10 @@ app.prepare().then(() => {
     console.log(`> Server listening on all network interfaces (0.0.0.0:${port})`);
   });
 
-  // Server HTTPS sulla porta 3001
+  // Server HTTPS sulla porta HTTPS
   const httpsServer = createHttpsServer(httpsOptions, async (req, res) => {
     try {
       const parsedUrl = parse(req.url, true);
-      // Preserva l'hostname originale dalla richiesta
-      // Next.js accetterà qualsiasi hostname quando si usa un server personalizzato
       await handle(req, res, parsedUrl);
     } catch (err) {
       console.error('Error occurred handling', req.url, err);
@@ -150,9 +158,14 @@ app.prepare().then(() => {
     console.error('HTTPS Server error:', err);
   });
   
-  httpsServer.listen(port + 1, hostname, () => {
-    console.log(`> HTTPS ready on https://localhost:${port + 1}`);
-    console.log(`> HTTPS Network: https://${networkIP}:${port + 1}`);
-    console.log(`> Server listening on all network interfaces (0.0.0.0:${port + 1})`);
+  httpsServer.listen(httpsPort, hostname, () => {
+    console.log(`> HTTPS ready on https://localhost:${httpsPort}`);
+    console.log(`> HTTPS Network: https://${networkIP}:${httpsPort}`);
+    console.log(`> Server listening on all network interfaces (0.0.0.0:${httpsPort})`);
+    if (dev) {
+      console.log(`> Running in development mode`);
+    } else {
+      console.log(`> Running in production mode`);
+    }
   });
 });

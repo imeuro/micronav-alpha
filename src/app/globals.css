@@ -44,6 +44,12 @@ a {
   color: inherit;
   text-decoration: none;
 }
+.hTitle {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--quaternary-color);
+  letter-spacing: -1px;
+}
 
 @media (prefers-color-scheme: dark) {
   html {
