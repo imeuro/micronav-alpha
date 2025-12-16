@@ -37,7 +37,7 @@ const DeviceStatus = () => {
     if (mqttManager) {
       await mqttManager.publishMQTTMessage(
         `micronav/device/${MQTT_CONFIG.DEVICE_ID}/commands`,
-        { command: "set_brightness", value: value },
+        { command: "set_brightness", brightness: value },
         1,
         false
       );
