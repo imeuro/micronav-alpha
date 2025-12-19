@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMQTT } from "../contexts/MQTTContext";
 import { MQTT_CONFIG } from "../constants";
 import styles from "./deviceStatus.module.css";
@@ -7,6 +7,8 @@ import styles from "./deviceStatus.module.css";
 const DeviceStatus = () => {
   const { isRaspberryConnected, deviceConnections, sendCommand, mqttManager } = useMQTT();
   const [brightness, setBrightness] = useState<number>(100);
+  const debounceTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastPublishedValueRef = useRef<number>(100);
 
   // Funzione helper per ottenere il testo dello stato
   const getStatusText = (status: boolean | null | undefined): string => {
@@ -24,6 +26,14 @@ const DeviceStatus = () => {
     return status ? styles.statusConnected : styles.statusDisconnected;
   };
 
+  useEffect(() => {
+    return () => {
+      if (debounceTimeoutRef.current) {
+        clearTimeout(debounceTimeoutRef.current);
+      }
+    };
+  }, []);
+
   // Funzione per gestire il restart
   const handleRestart = async () => {
     if (isRaspberryConnected) {
@@ -34,14 +44,29 @@ const DeviceStatus = () => {
   // Funzione per gestire il cambio luminosità
   const handleBrightnessChange = async (value: number) => {
     setBrightness(value);
-    if (mqttManager) {
+
+    if (debounceTimeoutRef.current) {
+      clearTimeout(debounceTimeoutRef.current);
+    }
+
+    debounceTimeoutRef.current = setTimeout(async () => {
+      if (!mqttManager) {
+        return;
+      }
+
+      if (value === lastPublishedValueRef.current) {
+        return;
+      }
+
       await mqttManager.publishMQTTMessage(
         `micronav/device/${MQTT_CONFIG.DEVICE_ID}/commands`,
-        { command: "set_brightness", brightness: value },
+        { command: "set_brightness", value: value },
         1,
         false
       );
-    }
+
+      lastPublishedValueRef.current = value;
+    }, 300);
   };
 
   return (
